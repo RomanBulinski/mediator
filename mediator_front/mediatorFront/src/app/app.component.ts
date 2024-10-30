@@ -17,12 +17,28 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    // this.websocketService.connect();
-    console.log("jestem w OnInit")
+    // this.webSocketService.connect();
+    // this.webSocketService.onMessageReceived().subscribe((x)=>{
+    //   console.log("jestem w OnInit")
+    //   console.log(x)
+    // });
   }
 
-  hitBaza(){
-    console.log("push button")
-    // this.websocketService.connect();
+  connectToSocket(){
+    this.webSocketService.connect();
   }
+
+  disconnectSocket(){
+    this.webSocketService.disconnect();
+  }
+
+  getMessage(){
+    this.webSocketService.sendMessage("aaaaaaa");
+
+    this.webSocketService.onMessageReceived().subscribe((x)=>{
+      console.log("jestem w OnInit")
+      console.log(x)
+    });
+  }
+
 }
