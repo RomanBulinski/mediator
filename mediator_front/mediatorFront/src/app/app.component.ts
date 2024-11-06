@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {RouterOutlet} from '@angular/router';
 import {WebSocketService} from "./web-socket-service";
+import {map, tap} from "rxjs";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-root',
@@ -10,35 +12,40 @@ import {WebSocketService} from "./web-socket-service";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'mediatorFront';
 
-  constructor (private webSocketService: WebSocketService) {
+  constructor(private webSocketService: WebSocketService,
+              private snackBar: MatSnackBar) {
+
+    // this.webSocketService.onMessageReceived().subscribe((x) => {
+    // });
+    this.webSocketService.onMessageReceived().pipe(
+      tap((message) => {
+        this.snackBar.open(message, "closse", {
+          duration: 3000,
+        });
+      }),
+      map((x) => {
+        return x;
+      })
+    ).subscribe((result) => {
+    })
   }
 
   ngOnInit(): void {
-    // this.webSocketService.connect();
-    // this.webSocketService.onMessageReceived().subscribe((x)=>{
-    //   console.log("jestem w OnInit")
-    //   console.log(x)
-    // });
   }
 
-  connectToSocket(){
-    this.webSocketService.connect();
+  activateSocket() {
+    this.webSocketService.activate();
   }
 
-  disconnectSocket(){
-    this.webSocketService.disconnect();
+  deactivateSocket() {
+    this.webSocketService.deactivate();
   }
 
-  getMessage(){
+  getMessage() {
     this.webSocketService.sendMessage("aaaaaaa");
-
-    this.webSocketService.onMessageReceived().subscribe((x)=>{
-      console.log("jestem w OnInit")
-      console.log(x)
-    });
   }
 
 }

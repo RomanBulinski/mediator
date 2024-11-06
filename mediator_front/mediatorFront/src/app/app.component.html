@@ -1,5 +1,7 @@
-<H2>Panel administracyjny mediatora</H2>
+<H2>Mediator</H2>
 
-<button mat-button (click)="connectToSocket()">connect to socket</button>
-<button mat-button (click)="disconnectSocket()">disconnect socket</button>
-<button mat-button (click)="getMessage()">get message</button>
+<div fxLayoutGap="20px">
+  <button (click)="activateSocket()" mat-button>activate socket</button>
+  <button (click)="deactivateSocket()" mat-button>deactivate socket</button>
+  <button (click)="getMessage()" mat-button>get message</button>
+</div>
