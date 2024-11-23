@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
-import {WebSocketService} from "./web-socket-service";
+import {WebSocketService} from "./web_socket/web-socket-service";
 import {map, tap} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [MatButton],
   providers: [WebSocketService],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']

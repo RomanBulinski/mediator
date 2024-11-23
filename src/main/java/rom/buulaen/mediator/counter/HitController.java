@@ -25,6 +25,9 @@ public class HitController {
         response.put("timestamp", String.valueOf(System.currentTimeMillis()));
 
         messagingTemplate.convertAndSend("/topic/messages", response);
-        return new ResponseEntity<>(hitCounterService.countHit(), HttpStatus.OK);
+
+        String result = hitCounterService.countHit();
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
